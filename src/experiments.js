@@ -44,14 +44,6 @@ const choose = ({ collection: _collection, id }) => {
   };
 };
 
-function orderedSelect({ list, cursor }) {
-  return {
-    list,
-    cursor: cursor + 1,
-    selection: list[cursor]
-  };
-}
-
 // looks like an observable getter setter sort of thing
 function toSimpleStream(fx, initialState) {
   let state = initialState;
@@ -61,6 +53,13 @@ function toSimpleStream(fx, initialState) {
       return { state, fx };
     }
     return (state = fx(state)) || { state, fx };
+  };
+}
+function orderedSelect({ list, cursor }) {
+  return {
+    list,
+    cursor: cursor + 1,
+    selection: list[cursor % list.length]
   };
 }
 
@@ -123,41 +122,3 @@ const interface = questions.map(ticker).reduce((obj, cur) => {
 }, {});
 
 interface;
-
-// console.log(chooseMultiple({ step: 2, nextCollection: daysOfWeek }, "id"));
-
-// TESTS
-// const things = [
-//   {
-//     id: "ian",
-//     color: "red"
-//   },
-//   { id: "joy", color: "red" },
-//   { id: "jam", color: "purple" }
-// ];
-
-// const c1 = choose(things, "id");
-
-// questions = data.get("questions");
-// chosenQuestions = choose(2, questions);
-
-// if (chosenQuestions.length) {
-// }
-
-// }.map(q=>d = choose(day of week, no repeat), {date; d, question}).keyBy("date")
-
-// send(deeners[getDate] || standardQuestion)
-// (
-// function chooseMultiple({ step, nextCollection: collection, id }) {
-//   let retval = [];
-//   let _collection = collection;
-//   for (let i = 0; i < step; i++) {
-//     const { nextCollection, selection } = choose({
-//       nextCollection: _collection,
-//       id
-//     });
-//     _collection = nextCollection;
-//     retval.push(selection);
-//   }
-//   return { nextCollection: _collection, selection: retval, id };
-// })

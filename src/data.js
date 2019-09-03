@@ -1,4 +1,17 @@
-standard_flows = [
+module.exports.constantState = {
+  questionsPerWeek: 2,
+  dienerQuestionIds: [
+    "Engaged",
+    "Future",
+    "Purpose",
+    "Respect",
+    "Competent",
+    "Good"
+  ],
+  resetDay: 0
+};
+
+const standard_flows = [
   [
     "Hi @contact.name, how was your day today? From 1 being on the struggle bus to 10 being pure bliss. ",
     "Thanks for reflecting @contact.name. Why do you feel today was a @flow.wellbeing_quant?"
